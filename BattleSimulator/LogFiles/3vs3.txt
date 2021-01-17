@@ -1,0 +1,18 @@
+Simulation: 1: Heroes won 
+Simulation: 2: Heroes won 
+Simulation: 3: Heroes won 
+Simulation: 4: Heroes won 
+Simulation: 5: Heroes won 
+Simulation: 6: Heroes won 
+Simulation: 7: Heroes won 
+Simulation: 8: Heroes won 
+Simulation: 9: Heroes won 
+Simulation: 10: Heroes won 
+
+Character | health |attack |defense |magical attack |magical defense 
+Greenmor | 50 | 4 | 3 | 3 | 2 
+Brianna | 58 | 6 | 4 | 1 | 1 
+Elishah | 56 | 2 | 3 | 6 | 5 
+guard_1 | 53 | 5 | 4 | 1 | 2 
+guard_2 | 53 | 5 | 4 | 1 | 2 
+wizard | 48 | 2 | 2 | 5 | 4 

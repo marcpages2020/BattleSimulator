@@ -15,22 +15,22 @@ Attack::~Attack() {}
 
 void Attack::Execute()
 {
-	Warrior* enemy = _executor->ChooseRandomEnemy();
-
-	if (enemy == nullptr)
+	if (_executor->enemy == nullptr)
 		return;
 
 	int probability = rand() % 100;
 
 	if (probability < miss_chance)
 	{
-		std::cout << _executor->name << "(HP " << _executor->_health << ") " << " attacked " << enemy->name << " and missed" <<" || " << enemy->name << "'s health: " << enemy->_health << std::endl;
+		std::cout << _executor->name << "(HP " << _executor->_health << ") " << " attacked " << _executor->enemy->name << " and missed" << 
+										" || " << _executor->enemy->name << "'s health: " << _executor->enemy->_health << std::endl;
 		return;
 	}
 
-	enemy->TakeDamage(_executor->_attack);
+	_executor->enemy->TakeDamage(_executor->_attack);
 
-	std::cout << _executor->name << "(HP " << _executor->_health << ") " << " attacked " << enemy->name << " || " << enemy->name << "'s health: "<< enemy->_health << std::endl;
+	std::cout << _executor->name << "(HP " << _executor->_health << ") " << " attacked " << _executor->enemy->name << 
+									" || " << _executor->enemy->name << "'s health: "<< _executor->enemy->_health << std::endl;
 }
 
 Defend::Defend(Warrior* executor) : Action(executor) 

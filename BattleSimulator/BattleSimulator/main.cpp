@@ -1,4 +1,5 @@
 #include <iostream>
+using namespace std;
 #include <fstream>
 #include <direct.h>
 
@@ -10,11 +11,13 @@ void AddCharacterStatsToFile(Warrior warrior, std::ofstream& logFile);
 
 void Run3vs3Simulation();
 void RunMainVsEnemiesSimulation();
+void RunPveSimulation();
 
 int main() {
 	
 	//Run3vs3Simulation();
-	RunMainVsEnemiesSimulation();
+	//RunMainVsEnemiesSimulation();
+	RunPveSimulation();
 
 	return 0;
 }
@@ -46,9 +49,9 @@ void Run3vs3Simulation()
 	Warrior Brianna("Brianna", 58.0f, 6.0f, 4.0f, 1.0f, 1.0f, &gameManager);
 	Warrior Elishah("Elishah", 56.0f, 2.0f, 3.0f, 6.0f, 5.0f, &gameManager);
 
-	Warrior guard_1("guard_1", 53.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
-	Warrior guard_2("guard_2", 53.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
-	Warrior wizard("wizard", 48.0f, 2.0f, 2.0f, 5.0f, 4.0f, &gameManager);
+	Warrior guard_1("Guard_1", 53.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
+	Warrior guard_2("Guard_2", 53.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
+	Warrior wizard("Wizard", 48.0f, 2.0f, 2.0f, 5.0f, 4.0f, &gameManager);
 
 	//Warrior Fornter("Fornter", 1712.0f, 175.0f, 135.0f, 25.0f, 45.0f);
 	//Warrior GreatWizard("GreatWizard", 1528.0f, 45.0f, 60.0f, 165.0f, 155.0f);
@@ -72,12 +75,14 @@ void Run3vs3Simulation()
 			for (size_t i = 0; i < gameManager._heroes.size(); i++)
 			{
 				gameManager._heroes[i].ChooseAction(Strategy::RANDOM);
+				//gameManager._heroes[i].ChooseAction(Strategy::ALWAYS_ATTACK);
 				gameManager._heroes[i].ExecuteAction();
 			}
 
 			for (size_t i = 0; i < gameManager._villains.size(); i++)
 			{
 				gameManager._villains[i].ChooseAction(Strategy::RANDOM);
+				//gameManager._villains[i].ChooseAction(Strategy::ALWAYS_ATTACK);
 				gameManager._villains[i].ExecuteAction();
 			}
 
@@ -185,4 +190,107 @@ void RunMainVsEnemiesSimulation()
 
 	logFile << "Character | " << "health |" << "attack |" << "defense |" << "magical attack |" << "magical defense \n";
 	AddCharacterStatsToFile(Greenmor, logFile);
+}
+
+void RunPveSimulation()
+{
+	GameManager gameManager;
+
+	_mkdir("../LogFiles");
+	std::ofstream logFile;
+	logFile.open("../LogFiles/PVE.txt");
+
+	srand(time(NULL));
+
+	size_t simulations_amount = 10;
+	size_t max_rounds = 100;
+
+	Warrior Greenmor("Greenmor", 50.0f, 4.0f, 3.0f, 3.0f, 2.0f, &gameManager);
+	Warrior Brianna("Brianna", 58.0f, 6.0f, 4.0f, 1.0f, 1.0f, &gameManager);
+	Warrior Elishah("Elishah", 56.0f, 2.0f, 3.0f, 6.0f, 5.0f, &gameManager);
+
+	Warrior guard_1("Guard_1", 53.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
+	Warrior guard_2("Guard_2", 53.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
+	Warrior wizard("Wizard", 48.0f, 2.0f, 2.0f, 5.0f, 4.0f, &gameManager);
+
+	//Warrior Fornter("Fornter", 1712.0f, 175.0f, 135.0f, 25.0f, 45.0f);
+	//Warrior GreatWizard("GreatWizard", 1528.0f, 45.0f, 60.0f, 165.0f, 155.0f);
+	
+	bool quit = false;
+
+	while(!quit)
+	{
+		gameManager._heroes = { Greenmor, Brianna, Elishah };
+		gameManager._villains = { guard_1, guard_2, wizard };
+
+		gameManager.SetSimulation();
+
+		int winner = -1;
+
+		for (size_t i = 0; i < max_rounds && winner == -1; i++)
+		{
+			std::cout << "Round " << i + 1 << std::endl;
+
+			//Show stats =================================================================
+			for (size_t i = 0; i < gameManager._heroes.size(); i++) {
+				gameManager._heroes[i].ShowStats();}
+
+			cout << "-------------------------------------------------------------------" << endl;
+
+			for (size_t i = 0; i < gameManager._villains.size(); i++) {
+				gameManager._villains[i].ShowStats();}
+
+			cout << endl;
+
+			cout << "PLAYER TURN ===============================================================" << endl;
+
+			//Take Action ================================================================
+			for (size_t i = 0; i < gameManager._heroes.size(); i++)
+			{
+				gameManager._heroes[i].HandleInput();
+				//gameManager._heroes[i].ChooseAction(Strategy::ALWAYS_ATTACK);
+				gameManager._heroes[i].ExecuteAction();
+				
+				cout << endl;
+			}
+
+			cout << "ENEMIES TURN ===============================================================" << endl;
+
+			for (size_t i = 0; i < gameManager._villains.size(); i++)
+			{
+				gameManager._villains[i].ChooseAction(Strategy::RANDOM);
+				//gameManager._villains[i].ChooseAction(Strategy::ALWAYS_ATTACK);
+				gameManager._villains[i].ExecuteAction();
+			}
+
+			winner = gameManager.CheckWinner();
+
+			std::cout << "" << std::endl;
+			system("pause");
+			system("cls");
+		}
+
+		if (winner == 0) {
+			logFile << "Heroes won \n";
+		}
+		else if (winner == 1)
+		{
+			logFile << "Villains won \n";
+		}
+		else {
+			logFile << "Match \n";
+		}
+	}
+
+	logFile << "\n";
+
+	logFile << "Character | " << "health |" << "attack |" << "defense |" << "magical attack |" << "magical defense \n";
+	AddCharacterStatsToFile(Greenmor, logFile);
+	AddCharacterStatsToFile(Brianna, logFile);
+	AddCharacterStatsToFile(Elishah, logFile);
+	AddCharacterStatsToFile(guard_1, logFile);
+	AddCharacterStatsToFile(guard_2, logFile);
+	AddCharacterStatsToFile(wizard, logFile);
+
+	logFile.close();
 }

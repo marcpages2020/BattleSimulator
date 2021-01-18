@@ -20,6 +20,8 @@ public:
 	
 	void ChooseAction(Strategy strategy);
 	void ChooseRandomAction();
+	Action* ActionTypeToAction(ActionType actionType);
+	void HandleInput();
 	void ExecuteAction();
 	Warrior* ChooseRandomEnemy();
 
@@ -28,6 +30,7 @@ public:
 
 	inline bool IsAlive() { return _health > 0; }
 	void IncreaseStats(float attackIncrease, float defenseIncrease, float magicalAttackIncrease, float magicalDefenseIncrease, float healthIncrease);
+	void ShowStats();
 
 public:
 	const char* name;
@@ -39,6 +42,8 @@ public:
 	float _magicalAttack;
 	float _magicalDefense;
 	float _magicalDefenseMultiplier;
+	
+Warrior* enemy;
 
 private:
 	std::vector<Warrior>* _enemies;

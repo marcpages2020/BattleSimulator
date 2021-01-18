@@ -14,10 +14,10 @@ void RunMainVsEnemiesSimulation();
 void RunPveSimulation();
 
 int main() {
-	
-	//Run3vs3Simulation();
+
+	Run3vs3Simulation();
 	//RunMainVsEnemiesSimulation();
-	RunPveSimulation();
+	//RunPveSimulation();
 
 	return 0;
 }
@@ -45,13 +45,13 @@ void Run3vs3Simulation()
 	size_t simulations_amount = 10;
 	size_t max_rounds = 100;
 
-	Warrior Greenmor("Greenmor", 50.0f, 4.0f, 3.0f, 3.0f, 2.0f, &gameManager);
-	Warrior Brianna("Brianna", 58.0f, 6.0f, 4.0f, 1.0f, 1.0f, &gameManager);
-	Warrior Elishah("Elishah", 56.0f, 2.0f, 3.0f, 6.0f, 5.0f, &gameManager);
+	Warrior Greenmor("Greenmor", 50.0f, 3.0f, 4.0f, 3.0f, 3.0f, 2.0f, &gameManager);
+	Warrior Brianna("Brianna", 58.0f, 2.0f, 6.0f, 4.0f, 1.0f, 1.0f, &gameManager);
+	Warrior Elishah("Elishah", 56.0f, 8.0f, 2.0f, 3.0f, 6.0f, 5.0f, &gameManager);
 
-	Warrior guard_1("Guard_1", 53.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
-	Warrior guard_2("Guard_2", 53.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
-	Warrior wizard("Wizard", 48.0f, 2.0f, 2.0f, 5.0f, 4.0f, &gameManager);
+	Warrior guard_1("Guard_1", 53.0f, 3.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
+	Warrior guard_2("Guard_2", 53.0f, 3.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
+	Warrior wizard("Wizard", 48.0f, 6.0f, 2.0f, 2.0f, 5.0f, 4.0f, &gameManager);
 
 	//Warrior Fornter("Fornter", 1712.0f, 175.0f, 135.0f, 25.0f, 45.0f);
 	//Warrior GreatWizard("GreatWizard", 1528.0f, 45.0f, 60.0f, 165.0f, 155.0f);
@@ -74,15 +74,17 @@ void Run3vs3Simulation()
 
 			for (size_t i = 0; i < gameManager._heroes.size(); i++)
 			{
-				gameManager._heroes[i].ChooseAction(Strategy::RANDOM);
+				gameManager._heroes[i].ChooseAction(ActionStrategy::RANDOM);
 				//gameManager._heroes[i].ChooseAction(Strategy::ALWAYS_ATTACK);
+				gameManager._heroes[i].ChooseEnemy(ChooseTargetStrategy::OPTIMIZED);
 				gameManager._heroes[i].ExecuteAction();
 			}
 
 			for (size_t i = 0; i < gameManager._villains.size(); i++)
 			{
-				gameManager._villains[i].ChooseAction(Strategy::RANDOM);
+				gameManager._villains[i].ChooseAction(ActionStrategy::RANDOM);
 				//gameManager._villains[i].ChooseAction(Strategy::ALWAYS_ATTACK);
+				gameManager._villains[i].ChooseEnemy(ChooseTargetStrategy::OPTIMIZED);
 				gameManager._villains[i].ExecuteAction();
 			}
 
@@ -129,8 +131,8 @@ void RunMainVsEnemiesSimulation()
 	size_t max_levels = 100;
 	size_t max_rounds = 100;
 
-	Warrior Greenmor("Greenmor", 50.0f, 4.0f, 3.0f, 3.0f, 2.0f, &gameManager);
-	Warrior Fornter("Fornter", 1712.0f, 175.0f, 135.0f, 25.0f, 45.0f, &gameManager);
+	Warrior Greenmor("Greenmor", 50.0f, 3.0f, 4.0f, 3.0f, 3.0f, 2.0f, &gameManager);
+	Warrior Fornter("Fornter", 1712.0f, 25.0f, 175.0f, 135.0f, 25.0f, 45.0f, &gameManager);
 
 	for (size_t l = 1; l <= max_levels; l++)
 	{
@@ -143,10 +145,10 @@ void RunMainVsEnemiesSimulation()
 			Greenmor.IncreaseStats(80.0f, 80.0f, 70.0f, 70.0f, 100.0f);
 		}
 
-		std::cout << "Greenmor Stats: " << "HP " << Greenmor._health << " | " << "ATCK " << Greenmor._attack << " | " << "DEF " << Greenmor._defense 
-			<< " | " <<	"M_ATCK " << Greenmor._magicalAttack << " | " << "M_DEF " << Greenmor._magicalDefense << "\n"; 
+		std::cout << "Greenmor Stats: " << "HP " << Greenmor._health << " | " << "ATCK " << Greenmor._attack << " | " << "DEF " << Greenmor._defense
+			<< " | " << "M_ATCK " << Greenmor._magicalAttack << " | " << "M_DEF " << Greenmor._magicalDefense << "\n";
 
-		gameManager._heroes = { Greenmor};
+		gameManager._heroes = { Greenmor };
 		gameManager._villains = { Fornter };
 
 		gameManager.SetSimulation();
@@ -159,13 +161,14 @@ void RunMainVsEnemiesSimulation()
 
 			for (size_t i = 0; i < gameManager._heroes.size(); i++)
 			{
-				gameManager._heroes[i].ChooseAction(Strategy::RANDOM);
+				gameManager._heroes[i].ChooseAction(ActionStrategy::RANDOM);
+				gameManager._heroes[i].ChooseEnemy(ChooseTargetStrategy::RANDOM);
 				gameManager._heroes[i].ExecuteAction();
 			}
 
 			for (size_t i = 0; i < gameManager._villains.size(); i++)
 			{
-				gameManager._villains[i].ChooseAction(Strategy::RANDOM);
+				gameManager._villains[i].ChooseAction(ActionStrategy::RANDOM);
 				gameManager._villains[i].ExecuteAction();
 			}
 
@@ -205,20 +208,20 @@ void RunPveSimulation()
 	size_t simulations_amount = 10;
 	size_t max_rounds = 100;
 
-	Warrior Greenmor("Greenmor", 50.0f, 4.0f, 3.0f, 3.0f, 2.0f, &gameManager);
-	Warrior Brianna("Brianna", 58.0f, 6.0f, 4.0f, 1.0f, 1.0f, &gameManager);
-	Warrior Elishah("Elishah", 56.0f, 2.0f, 3.0f, 6.0f, 5.0f, &gameManager);
+	Warrior Greenmor("Greenmor", 50.0f, 3.0f, 4.0f, 3.0f, 3.0f, 2.0f, &gameManager);
+	Warrior Brianna("Brianna", 58.0f, 2.0f, 6.0f, 4.0f, 1.0f, 1.0f, &gameManager);
+	Warrior Elishah("Elishah", 56.0f, 8.0f, 2.0f, 3.0f, 6.0f, 5.0f, &gameManager);
 
-	Warrior guard_1("Guard_1", 53.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
-	Warrior guard_2("Guard_2", 53.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
-	Warrior wizard("Wizard", 48.0f, 2.0f, 2.0f, 5.0f, 4.0f, &gameManager);
+	Warrior guard_1("Guard_1", 53.0f, 3.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
+	Warrior guard_2("Guard_2", 53.0f, 3.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
+	Warrior wizard("Wizard", 48.0f, 6.0f, 2.0f, 2.0f, 5.0f, 4.0f, &gameManager);
 
 	//Warrior Fornter("Fornter", 1712.0f, 175.0f, 135.0f, 25.0f, 45.0f);
 	//Warrior GreatWizard("GreatWizard", 1528.0f, 45.0f, 60.0f, 165.0f, 155.0f);
-	
+
 	bool quit = false;
 
-	while(!quit)
+	while (!quit)
 	{
 		gameManager._heroes = { Greenmor, Brianna, Elishah };
 		gameManager._villains = { guard_1, guard_2, wizard };
@@ -233,12 +236,14 @@ void RunPveSimulation()
 
 			//Show stats =================================================================
 			for (size_t i = 0; i < gameManager._heroes.size(); i++) {
-				gameManager._heroes[i].ShowStats();}
+				gameManager._heroes[i].ShowStats();
+			}
 
 			cout << "-------------------------------------------------------------------" << endl;
 
 			for (size_t i = 0; i < gameManager._villains.size(); i++) {
-				gameManager._villains[i].ShowStats();}
+				gameManager._villains[i].ShowStats();
+			}
 
 			cout << endl;
 
@@ -250,7 +255,7 @@ void RunPveSimulation()
 				gameManager._heroes[i].HandleInput();
 				//gameManager._heroes[i].ChooseAction(Strategy::ALWAYS_ATTACK);
 				gameManager._heroes[i].ExecuteAction();
-				
+
 				cout << endl;
 			}
 
@@ -258,7 +263,7 @@ void RunPveSimulation()
 
 			for (size_t i = 0; i < gameManager._villains.size(); i++)
 			{
-				gameManager._villains[i].ChooseAction(Strategy::RANDOM);
+				gameManager._villains[i].ChooseAction(ActionStrategy::RANDOM);
 				//gameManager._villains[i].ChooseAction(Strategy::ALWAYS_ATTACK);
 				gameManager._villains[i].ExecuteAction();
 			}

@@ -4,9 +4,9 @@
 
 Action::Action(Warrior* executor) : _executor(executor), miss_chance(20) {}
 
-Action::~Action() { _executor = nullptr;  }
+Action::~Action() { _executor = nullptr; }
 
-Attack::Attack(Warrior* executor) : Action(executor) 
+Attack::Attack(Warrior* executor) : Action(executor)
 {
 	type = ActionType::ATTACK;
 }
@@ -15,25 +15,27 @@ Attack::~Attack() {}
 
 void Attack::Execute()
 {
-	if (_executor->enemy == nullptr)
+	Warrior* enemy = _executor->_enemy;
+
+	if (enemy == nullptr)
 		return;
 
 	int probability = rand() % 100;
 
 	if (probability < miss_chance)
 	{
-		std::cout << _executor->name << "(HP " << _executor->_health << ") " << " attacked " << _executor->enemy->name << " and missed" << 
-										" || " << _executor->enemy->name << "'s health: " << _executor->enemy->_health << std::endl;
+		std::cout << _executor->name << "(HP " << _executor->_health << ") " << " attacked " << enemy->name << " and missed" <<
+			" || " << enemy->name << "'s health: " << enemy->_health << std::endl;
 		return;
 	}
 
-	_executor->enemy->TakeDamage(_executor->_attack);
+	_executor->_enemy->TakeDamage(_executor->_attack);
 
-	std::cout << _executor->name << "(HP " << _executor->_health << ") " << " attacked " << _executor->enemy->name << 
-									" || " << _executor->enemy->name << "'s health: "<< _executor->enemy->_health << std::endl;
+	std::cout << _executor->name << "(HP " << _executor->_health << ") " << " attacked " << enemy->name <<
+		" || " << enemy->name << "'s health: " << enemy->_health << std::endl;
 }
 
-Defend::Defend(Warrior* executor) : Action(executor) 
+Defend::Defend(Warrior* executor) : Action(executor)
 {
 	type = ActionType::DEFEND;
 }
@@ -46,7 +48,7 @@ void Defend::Execute()
 	std::cout << _executor->name << "(HP " << _executor->_health << ") " << " defended" << std::endl;
 }
 
-MagicalAttack::MagicalAttack(Warrior* executor) : Action(executor) 
+MagicalAttack::MagicalAttack(Warrior* executor) : Action(executor)
 {
 	type = ActionType::MAGICAL_ATTACK;
 }
@@ -55,7 +57,7 @@ MagicalAttack::~MagicalAttack() {}
 
 void MagicalAttack::Execute()
 {
-	Warrior* enemy = _executor->ChooseRandomEnemy();
+	Warrior* enemy = _executor->_enemy;
 
 	if (enemy == nullptr)
 		return;
@@ -69,8 +71,8 @@ void MagicalAttack::Execute()
 	}
 
 	enemy->TakeMagicalDamage(_executor->_magicalAttack);
-
 	std::cout << _executor->name << "(HP " << _executor->_health << ") " << " magically attacked " << enemy->name << " || " << enemy->name << "'s health: " << enemy->_health << std::endl;
+	_executor->_energy -= _executor->_magicalAttack * 0.5f;
 }
 
 MagicalDefend::MagicalDefend(Warrior* executor) : Action(executor)
@@ -85,4 +87,5 @@ void MagicalDefend::Execute()
 	_executor->_magicalDefenseMultiplier = 1.0f;
 
 	std::cout << _executor->name << "(HP " << _executor->_health << ") " << " magically defended " << std::endl;
+	_executor->_energy -= _executor->_magicalDefense * 0.5f;
 }

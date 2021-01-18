@@ -5,8 +5,8 @@
 #include <iostream>
 using namespace std;
 
-Warrior::Warrior(const char* g_name, float health, float attack, float defense, float magicalAttack, float magicalDefense, GameManager* gameManager)
-	: name(g_name), _health(health), _attack(attack), _defense(defense), _magicalAttack(magicalAttack), _magicalDefense(magicalDefense), _gameManager(gameManager),
+Warrior::Warrior(const char* g_name, float health, float energy, float attack, float defense, float magicalAttack, float magicalDefense, GameManager* gameManager)
+	: name(g_name), _health(health), _energy(energy),_attack(attack), _defense(defense), _magicalAttack(magicalAttack), _magicalDefense(magicalDefense), _gameManager(gameManager),
 	_defenseMultiplier(1.0f), _magicalDefenseMultiplier(1.0f), _currentAction(nullptr), _enemies(nullptr)
 {}
 
@@ -17,17 +17,22 @@ void Warrior::SetEnemies(std::vector<Warrior>* enemies)
 	_enemies = enemies;
 }
 
-void Warrior::ChooseAction(Strategy strategy)
+void Warrior::ChooseAction(ActionStrategy strategy)
 {
-	enemy = ChooseRandomEnemy();
-
 	switch (strategy)
 	{
-	case Strategy::RANDOM:
+	case ActionStrategy::RANDOM:
 		ChooseRandomAction();
 		break;
-	case Strategy::ALWAYS_ATTACK:
-		_currentAction = new Attack(this);
+	case ActionStrategy::ALWAYS_ATTACK:
+		if (_attack > _magicalAttack)
+		{
+			_currentAction = new Attack(this);
+		}
+		else
+		{
+			_currentAction = new MagicalAttack(this);
+		}
 		break;
 	default:
 		break;
@@ -36,7 +41,7 @@ void Warrior::ChooseAction(Strategy strategy)
 
 void Warrior::ChooseRandomAction()
 {
-	ActionType actionType =(ActionType)(rand() % MAX_ACTIONS);
+	ActionType actionType = (ActionType)(rand() % (_energy > 0.0f ? MAX_ACTIONS : MAGICAL_ATTACK));
 
 	switch (actionType)
 	{
@@ -92,7 +97,7 @@ void Warrior::HandleInput()
 	cout << endl;
 	actionType = (ActionType)(actionInt);
 	_currentAction = ActionTypeToAction(actionType);
-	
+
 	if (actionType == ActionType::ATTACK || actionType == ActionType::MAGICAL_ATTACK)
 	{
 		int enemyIndex = 0;
@@ -109,7 +114,7 @@ void Warrior::HandleInput()
 
 		} while (enemyIndex < 0 && enemyIndex > _enemies->size() - 1);
 
-		enemy = &_enemies->at(enemyIndex);
+		_enemy = &_enemies->at(enemyIndex);
 	}
 }
 
@@ -119,14 +124,74 @@ void Warrior::ExecuteAction()
 	delete _currentAction;
 }
 
-Warrior* Warrior::ChooseRandomEnemy()
+Warrior* Warrior::ChooseEnemy(ChooseTargetStrategy strategy)
 {
 	if (_enemies->size() == 0)
 		return nullptr;
 
+	if (strategy == ChooseTargetStrategy::RANDOM)
+	{
+		_enemy = ChooseRandomEnemy();
+	}
+	else if (strategy == ChooseTargetStrategy::OPTIMIZED)
+	{
+		_enemy = ChooseOptimizedEnemy();
+	}
+}
+
+Warrior* Warrior::ChooseRandomEnemy()
+{
 	int enemyIndex = rand() % _enemies->size();
 
 	return &_enemies->at(enemyIndex);
+}
+
+Warrior* Warrior::ChooseOptimizedEnemy()
+{
+	if (_currentAction->type == ActionType::ATTACK)
+	{
+		Warrior* lowestDefenseWarrior = &_enemies->at(0);
+		Warrior* lowestHealthWarrior = &_enemies->at(0);
+
+		for (size_t i = 0; i < _enemies->size(); i++)
+		{
+			//get the enemy with the lowest defense
+			if (_enemies->at(i)._defense < lowestDefenseWarrior->_defense)
+			{
+				lowestDefenseWarrior = &_enemies->at(i);
+			}
+
+			//get the enemy with the lowest health
+			if (_enemies->at(i)._health < lowestHealthWarrior->_health)
+			{
+				lowestHealthWarrior = &_enemies->at(i);
+			}
+
+			return lowestHealthWarrior;
+		}
+	}
+	else if (_currentAction->type == ActionType::MAGICAL_ATTACK)
+	{
+		Warrior* lowestMagicalDefenseWarrior = &_enemies->at(0);
+		Warrior* lowestHealthWarrior = &_enemies->at(0);
+
+		for (size_t i = 0; i < _enemies->size(); i++)
+		{
+			//get the enemy with the lowest magical defense
+			if (_enemies->at(i)._magicalDefense < lowestMagicalDefenseWarrior->_magicalDefense)
+			{
+				lowestMagicalDefenseWarrior = &_enemies->at(i);
+			}
+
+			//get the enemy with the lowest health
+			if (_enemies->at(i)._health < lowestHealthWarrior->_health)
+			{
+				lowestHealthWarrior = &_enemies->at(i);
+			}
+
+			return lowestHealthWarrior;
+		}
+	}
 }
 
 void Warrior::TakeDamage(float damage)
@@ -134,7 +199,8 @@ void Warrior::TakeDamage(float damage)
 	_health -= std::max((damage - _defense * _defenseMultiplier), 0.0f);
 
 	if (_defenseMultiplier != 0.0f) {
-		_defenseMultiplier = 0.0f;}
+		_defenseMultiplier = 0.0f;
+	}
 
 	if (_health <= 0)
 		_gameManager->CheckAliveWarriors();
@@ -145,7 +211,8 @@ void Warrior::TakeMagicalDamage(float magicalDamage)
 	_health -= std::max((magicalDamage - _magicalDefense * _magicalDefenseMultiplier), 0.0f);
 
 	if (_magicalDefenseMultiplier != 0.0f) {
-		_magicalDefenseMultiplier = 0.0f;}
+		_magicalDefenseMultiplier = 0.0f;
+	}
 
 	if (_health <= 0)
 		_gameManager->CheckAliveWarriors();

@@ -1,12 +1,12 @@
-Simulation: 1: Heroes won 
-Simulation: 2: Heroes won 
+Simulation: 1: Villains won 
+Simulation: 2: Villains won 
 Simulation: 3: Heroes won 
-Simulation: 4: Heroes won 
+Simulation: 4: Match 
 Simulation: 5: Heroes won 
-Simulation: 6: Heroes won 
+Simulation: 6: Villains won 
 Simulation: 7: Heroes won 
 Simulation: 8: Heroes won 
-Simulation: 9: Heroes won 
+Simulation: 9: Villains won 
 Simulation: 10: Heroes won 
 
 Character | health |attack |defense |magical attack |magical defense 

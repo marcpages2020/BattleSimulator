@@ -5,25 +5,32 @@
 
 class GameManager;
 
-enum Strategy
+enum ActionStrategy
 {
 	RANDOM,
 	ALWAYS_ATTACK,
 };
 
+enum class ChooseTargetStrategy
+{
+	RANDOM,
+	OPTIMIZED
+};
+
 class Warrior {
 public:
-	Warrior(const char* _name, float _health, float _attack, float _defense, float _magicalAttack, float _magicalDefense, GameManager* gameManager);
+	Warrior(const char* name, float health, float energy, float attack, float defense, float magicalAttack, float magicalDefense, GameManager* gameManager);
 	~Warrior();
 
 	void SetEnemies(std::vector<Warrior>* enemies);
-	
-	void ChooseAction(Strategy strategy);
+
+	void ChooseAction(ActionStrategy strategy);
 	void ChooseRandomAction();
 	Action* ActionTypeToAction(ActionType actionType);
 	void HandleInput();
 	void ExecuteAction();
-	Warrior* ChooseRandomEnemy();
+
+	Warrior* ChooseEnemy(ChooseTargetStrategy strategy);
 
 	void TakeDamage(float damage);
 	void TakeMagicalDamage(float magicalDamage);
@@ -32,18 +39,23 @@ public:
 	void IncreaseStats(float attackIncrease, float defenseIncrease, float magicalAttackIncrease, float magicalDefenseIncrease, float healthIncrease);
 	void ShowStats();
 
+private:
+	Warrior* ChooseRandomEnemy();
+	Warrior* ChooseOptimizedEnemy();
+
 public:
 	const char* name;
 
 	float _health;
+	float _energy;
 	float _attack;
 	float _defense;
 	float _defenseMultiplier;
 	float _magicalAttack;
 	float _magicalDefense;
 	float _magicalDefenseMultiplier;
-	
-Warrior* enemy;
+
+	Warrior* _enemy;
 
 private:
 	std::vector<Warrior>* _enemies;

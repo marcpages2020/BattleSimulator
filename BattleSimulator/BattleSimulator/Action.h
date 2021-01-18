@@ -23,8 +23,10 @@ public:
 
 protected:
 	Warrior* _executor;
-	ActionType type;
 	const int miss_chance;
+
+public:
+	ActionType type;
 };
 
 

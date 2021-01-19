@@ -166,7 +166,7 @@ Warrior* Warrior::ChooseOptimizedEnemy()
 			{
 				lowestDefenseWarrior = &_enemies->at(i);
 			}
-
+			
 			//get the enemy with the lowest health
 			if (_enemies->at(i)._health < lowestHealthWarrior->_health)
 			{
@@ -188,7 +188,7 @@ Warrior* Warrior::ChooseOptimizedEnemy()
 			{
 				lowestMagicalDefenseWarrior = &_enemies->at(i);
 			}
-
+			
 			//get the enemy with the lowest health
 			if (_enemies->at(i)._health < lowestHealthWarrior->_health)
 			{

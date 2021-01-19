@@ -17,12 +17,12 @@ int main() {
 
 	GameManager gameManager;
 
-	Warrior Greenmor("Greenmor", 50.0f, 3.0f, 4.0f, 3.0f, 3.0f, 2.0f, &gameManager);
-	Warrior Brianna("Brianna", 58.0f, 2.0f, 6.0f, 4.0f, 1.0f, 1.0f, &gameManager);
-	Warrior Elishah("Elishah", 56.0f, 8.0f, 2.0f, 3.0f, 6.0f, 5.0f, &gameManager);
+	Warrior Greenmor("Greenmor", 25.0f, 3.0f, 4.0f, 3.0f, 3.0f, 2.0f, &gameManager);
+	Warrior Brianna("Brianna", 29.0f, 2.0f, 6.0f, 4.0f, 1.0f, 1.0f, &gameManager);
+	Warrior Elishah("Elishah", 28.0f, 8.0f, 2.0f, 3.0f, 6.0f, 5.0f, &gameManager);
 
-	Warrior guard_1("Guard_1", 53.0f, 3.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
-	Warrior guard_2("Guard_2", 53.0f, 3.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
+	Warrior guard_1("Guard_1", 30.0f, 3.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
+	Warrior guard_2("Guard_2", 30.0f, 3.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
 	Warrior wizard("Wizard", 48.0f, 6.0f, 2.0f, 2.0f, 5.0f, 4.0f, &gameManager);
 
 	Warrior Fornter("Fornter", 1712.0f, 25.0f, 175.0f, 135.0f, 25.0f, 45.0f, &gameManager);
@@ -30,16 +30,16 @@ int main() {
 
 	// 3 vs 3 =====================================================================================
 
-	/*gameManager._heroes = { Greenmor, Brianna, Elishah };
+	gameManager._heroes = { Greenmor, Brianna, Elishah };
 	gameManager._villains = { guard_1, guard_2, wizard };
 
-	Run3vs3Simulation(gameManager);*/
+	Run3vs3Simulation(gameManager);
 
 	// Main vs Enemy ==============================================================================
 
-	gameManager._heroes = { Greenmor };
-	gameManager._villains = { Fornter };
-	RunMainVsEnemiesSimulation(gameManager);
+	//gameManager._heroes = { Greenmor };
+	//gameManager._villains = { Fornter };
+	//RunMainVsEnemiesSimulation(gameManager);
 
 	// PVE ========================================================================================
 	//RunPveSimulation(gameManager);
@@ -54,21 +54,25 @@ void Run3vs3Simulation(GameManager gameManager)
 
 	srand(time(NULL));
 
-	size_t simulations_amount = 10;
+	size_t simulations_amount = 50;
 	size_t max_rounds = 100;
+	float rounds_average = 0;
 
-	for (size_t s = 0; s < simulations_amount; s++)
+	logFile << "Simulation | Winner | Rounds amount | Alive Heroes | Alive Villains |\n";
+
+	for (size_t s = 1; s <= simulations_amount; s++)
 	{
-		logFile << "Simulation: " << s + 1 << ": ";
-		std::cout << "Simulation: " << s + 1 << " ==================================================" << std::endl;
+		logFile << s << " | ";
+		std::cout << "Simulation: " << s << " ==================================================" << std::endl;
 
 		gameManager.SetSimulation();
 
 		int winner = -1;
 
-		for (size_t i = 0; i < max_rounds && winner == -1; i++)
+		size_t rounds = 1;
+		for (rounds; rounds < max_rounds && winner == -1; rounds++)
 		{
-			std::cout << "Round " << i + 1 << std::endl;
+			std::cout << "Round " << rounds << std::endl;
 
 			for (size_t i = 0; i < gameManager.aliveHeroes.size(); i++)
 			{
@@ -77,6 +81,8 @@ void Run3vs3Simulation(GameManager gameManager)
 				gameManager.aliveHeroes[i].ChooseEnemy(ChooseTargetStrategy::OPTIMIZED);
 				gameManager.aliveHeroes[i].ExecuteAction();
 			}
+
+			gameManager.CheckAliveWarriors();
 
 			for (size_t i = 0; i < gameManager.aliveVillains.size(); i++)
 			{
@@ -92,23 +98,33 @@ void Run3vs3Simulation(GameManager gameManager)
 		}
 
 		if (winner == 0) {
-			cout << "Heroes won" << endl;
-			logFile << "Heroes won \n";
+			cout << "Heroes win" << endl;
+			logFile << "Heroes";
 		}
 		else if (winner == 1)
 		{
-			cout << "Villains won" << endl;
-			logFile << "Villains won \n";
+			cout << "Villains win" << endl;
+			logFile << "Villains";
 		}
 		else {
-			cout << "Match" << endl;
-			logFile << "Match \n";
+			cout << "Draw" << endl;
+			logFile << "Draw";
 		}
+
+		logFile << " | " << rounds;
+		rounds_average += rounds;
+
+		logFile << " | " << gameManager.aliveHeroes.size() << " | ";
+		logFile << gameManager.aliveVillains.size() << endl;
 	}
 
-	logFile << "\n";
 
-	logFile << "Character | " << "health |" << " energy |" << " attack |" << " defense |" << " magical attack |" << " magical defense \n";
+	logFile << "\n";
+	rounds_average /= simulations_amount;
+
+	logFile << "Rounds Average: " << rounds_average << endl << endl;
+
+	logFile << "Character | health | energy | attack | defense | magical attack | magical defense \n";
 	AddCharacterStatsToFile(gameManager._heroes[0], logFile);
 	AddCharacterStatsToFile(gameManager._heroes[1], logFile);
 	AddCharacterStatsToFile(gameManager._heroes[2], logFile);
@@ -179,7 +195,7 @@ void RunMainVsEnemiesSimulation(GameManager gameManager)
 			logFile << "Villains won \n";
 		}
 		else {
-			logFile << "Match \n";
+			logFile << "Draw \n";
 		}
 	}
 
@@ -260,7 +276,7 @@ void RunPveSimulation(GameManager gameManager)
 			logFile << "Villains won \n";
 		}
 		else {
-			logFile << "Match \n";
+			logFile << "Draw \n";
 		}
 	}
 

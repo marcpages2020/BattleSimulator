@@ -16,6 +16,8 @@ public:
 
 public:
 	std::vector<Warrior> _heroes;
+	std::vector<Warrior> aliveHeroes;
 	std::vector<Warrior> _villains;
+	std::vector<Warrior> aliveVillains;
 };
 #endif // !_GAME_MANAGER_H_

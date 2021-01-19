@@ -36,7 +36,7 @@ public:
 	void TakeMagicalDamage(float magicalDamage);
 
 	inline bool IsAlive() { return _health > 0; }
-	void IncreaseStats(float attackIncrease, float defenseIncrease, float magicalAttackIncrease, float magicalDefenseIncrease, float healthIncrease);
+	void IncreaseStats(float attackIncrease, float defenseIncrease, float magicalAttackIncrease, float magicalDefenseIncrease, float healthIncrease, float energyIncrease);
 	void ShowStats();
 
 private:

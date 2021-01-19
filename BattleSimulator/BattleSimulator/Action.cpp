@@ -71,8 +71,13 @@ void MagicalAttack::Execute()
 	}
 
 	enemy->TakeMagicalDamage(_executor->_magicalAttack);
-	std::cout << _executor->name << "(HP " << _executor->_health << ") " << " magically attacked " << enemy->name << " || " << enemy->name << "'s health: " << enemy->_health << std::endl;
+	std::cout << _executor->name << "(HP " << _executor->_health << ") " << " magically attacked " << enemy->name << " || " << enemy->name << "'s health: " << enemy->_health; 
+	
 	_executor->_energy -= _executor->_magicalAttack * 0.5f;
+	if (_executor->_energy <= 0)
+		std::cout << " | " << _executor->name << " run out of energy ";
+	
+	std::cout << std::endl;
 }
 
 MagicalDefend::MagicalDefend(Warrior* executor) : Action(executor)
@@ -86,6 +91,11 @@ void MagicalDefend::Execute()
 {
 	_executor->_magicalDefenseMultiplier = 1.0f;
 
-	std::cout << _executor->name << "(HP " << _executor->_health << ") " << " magically defended " << std::endl;
+	std::cout << _executor->name << "(HP " << _executor->_health << ") " << " magically defended ";
 	_executor->_energy -= _executor->_magicalDefense * 0.5f;
+
+	if (_executor->_energy <= 0)
+		std::cout << " | " << _executor->name << " run out of energy ";
+
+	std::cout << std::endl;
 }

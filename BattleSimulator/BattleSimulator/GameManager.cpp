@@ -6,24 +6,24 @@ GameManager::~GameManager() {}
 
 void GameManager::CheckAliveWarriors()
 {
-	std::vector<Warrior> alive_heroes;
-	for (size_t i = 0; i < _heroes.size(); i++)
+	std::vector<Warrior> tmp_alive_heroes;
+	for (size_t i = 0; i < aliveHeroes.size(); i++)
 	{
-		if (_heroes[i].IsAlive()) {
-			alive_heroes.push_back(_heroes[i]);
+		if (aliveHeroes[i].IsAlive()) {
+			tmp_alive_heroes.push_back(aliveHeroes[i]);
 		}
 
 	}
-	_heroes = alive_heroes;
+	aliveHeroes = tmp_alive_heroes;
 
-	std::vector<Warrior> alive_villains;
-	for (size_t i = 0; i < _villains.size(); i++)
+	std::vector<Warrior> tmp_alive_villains;
+	for (size_t i = 0; i < aliveVillains.size(); i++)
 	{
-		if (_villains[i].IsAlive()) {
-			alive_villains.push_back(_villains[i]);
+		if (aliveVillains[i].IsAlive()) {
+			tmp_alive_villains.push_back(aliveVillains[i]);
 		}
 	}
-	_villains = alive_villains;
+	aliveVillains = tmp_alive_villains;
 }
 
 int GameManager::CheckWinner()
@@ -31,11 +31,11 @@ int GameManager::CheckWinner()
 	CheckAliveWarriors();
 
 	//Heroes win
-	if (_villains.size() == 0)
+	if (aliveVillains.size() == 0)
 		return 0;
 
 	//Villains win
-	if (_heroes.size() == 0)
+	if (aliveHeroes.size() == 0)
 		return 1;
 
 	//No winner
@@ -44,13 +44,16 @@ int GameManager::CheckWinner()
 
 void GameManager::SetSimulation()
 {
-	for (size_t i = 0; i < _heroes.size(); i++)
+	aliveHeroes = _heroes;
+	aliveVillains = _villains;
+
+	for (size_t i = 0; i < aliveVillains.size(); i++)
 	{
-		_heroes[i].SetEnemies(&_villains);
+		aliveHeroes[i].SetEnemies(&aliveVillains);
 	}
 
-	for (size_t i = 0; i < _villains.size(); i++)
+	for (size_t i = 0; i < aliveVillains.size(); i++)
 	{
-		_villains[i].SetEnemies(&_heroes);
+		aliveVillains[i].SetEnemies(&aliveHeroes);
 	}
 }

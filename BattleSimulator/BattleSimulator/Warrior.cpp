@@ -90,7 +90,13 @@ Action* Warrior::ActionTypeToAction(ActionType actionType)
 void Warrior::HandleInput()
 {
 	std::cout << "What do you want to do with " << name << "?" << std::endl;
-	std::cout << "[0] Attack " << " | " << "[1] Defend" << " | " << "[2] Magical Attack" << " | " << "[3] Magical Defense" << std::endl;
+	std::cout << "[0] Attack " << " | " << "[1] Defend";
+	
+	if (_energy > 0)
+		cout << " | " << "[2] Magical Attack" << " | " << "[3] Magical Defense";
+
+	cout << std::endl;
+
 	ActionType actionType;
 	int actionInt;
 	std::cin >> actionInt;
@@ -218,13 +224,14 @@ void Warrior::TakeMagicalDamage(float magicalDamage)
 		_gameManager->CheckAliveWarriors();
 }
 
-void Warrior::IncreaseStats(float attackIncrease, float defenseIncrease, float magicalAttackIncrease, float magicalDefenseIncrease, float healthIncrease)
+void Warrior::IncreaseStats(float attackIncrease, float defenseIncrease, float magicalAttackIncrease, float magicalDefenseIncrease, float healthIncrease, float energyIncrease)
 {
 	_attack = round(_attack + (20.0f * (attackIncrease / 100.0f)));
 	_defense = round(_defense + (20.0f * (defenseIncrease / 100.0f)));
 	_magicalAttack = round(_magicalAttack + (20.0f * (magicalAttackIncrease / 100.0f)));
 	_magicalDefense = round(_magicalDefense + (20.0f * (magicalDefenseIncrease / 100.0f)));
 	_health = round(_health + (20.0f * (healthIncrease / 100.0f)));
+	_energy = round(_energy + (20.0f * (energyIncrease / 100.0f)));
 }
 
 void Warrior::ShowStats()

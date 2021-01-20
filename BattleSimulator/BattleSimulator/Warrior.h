@@ -8,6 +8,7 @@ class GameManager;
 enum ActionStrategy
 {
 	RANDOM,
+	ATTACK_TENDENCY,
 	ALWAYS_ATTACK,
 };
 
@@ -29,13 +30,15 @@ public:
 	Action* ActionTypeToAction(ActionType actionType);
 	void HandleInput();
 	void ExecuteAction();
+	inline ActionType GetCurrentActionType() { return _currentAction->type; }
 
 	Warrior* ChooseEnemy(ChooseTargetStrategy strategy);
 
 	void TakeDamage(float damage);
 	void TakeMagicalDamage(float magicalDamage);
+	void IncreaseEnergy();
 
-	inline bool IsAlive() { return _health > 0; }
+	inline bool IsAlive() { return _currentHealth > 0; }
 	void IncreaseStats(float attackIncrease, float defenseIncrease, float magicalAttackIncrease, float magicalDefenseIncrease, float healthIncrease, float energyIncrease);
 	void ShowStats();
 
@@ -46,8 +49,10 @@ private:
 public:
 	const char* name;
 
-	float _health;
-	float _energy;
+	float _currentHealth;
+	float _maxHealth;
+	float _currentEnergy;
+	float _maxEnergy;
 	float _attack;
 	float _defense;
 	float _defenseMultiplier;

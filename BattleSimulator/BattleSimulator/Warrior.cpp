@@ -6,7 +6,7 @@
 using namespace std;
 
 Warrior::Warrior(const char* g_name, float health, float energy, float attack, float defense, float magicalAttack, float magicalDefense, GameManager* gameManager)
-	: name(g_name), _health(health), _energy(energy),_attack(attack), _defense(defense), _magicalAttack(magicalAttack), _magicalDefense(magicalDefense), _gameManager(gameManager),
+	: name(g_name), _currentHealth(health), _maxHealth(health), _currentEnergy(energy), _maxEnergy(energy), _attack(attack), _defense(defense), _magicalAttack(magicalAttack), _magicalDefense(magicalDefense), _gameManager(gameManager),
 	_defenseMultiplier(1.0f), _magicalDefenseMultiplier(1.0f), _currentAction(nullptr), _enemies(nullptr)
 {}
 
@@ -19,13 +19,40 @@ void Warrior::SetEnemies(std::vector<Warrior>* enemies)
 
 void Warrior::ChooseAction(ActionStrategy strategy)
 {
+	int action;
+	bool magical;
 	switch (strategy)
 	{
 	case ActionStrategy::RANDOM:
 		ChooseRandomAction();
 		break;
+	case ActionStrategy::ATTACK_TENDENCY:
+		 action = rand() % 4;
+		 magical = rand() % 2;
+
+		//only defend 1/4 of the times
+		if (action == 3)
+		{
+			if (magical && _currentEnergy > _magicalDefense * 0.5f) {
+				_currentAction = new MagicalDefend(this);
+			}
+			else {
+				_currentAction = new Defend(this);
+			}
+		}
+		//then the attack probability is of 3/4
+		else
+		{
+			if (magical && _currentEnergy > _magicalAttack * 0.5f) {
+				_currentAction = new MagicalAttack(this);
+			}
+			else {
+				_currentAction = new Attack(this);
+			}
+		}
+		break;
 	case ActionStrategy::ALWAYS_ATTACK:
-		if (_attack > _magicalAttack)
+		if (_attack > _magicalAttack || _currentEnergy < _magicalAttack * 0.5f)
 		{
 			_currentAction = new Attack(this);
 		}
@@ -41,7 +68,7 @@ void Warrior::ChooseAction(ActionStrategy strategy)
 
 void Warrior::ChooseRandomAction()
 {
-	ActionType actionType = (ActionType)(rand() % (_energy > 0.0f ? MAX_ACTIONS : MAGICAL_ATTACK));
+	ActionType actionType = (ActionType)(rand() % (_currentEnergy > 0.0f ? MAX_ACTIONS : MAGICAL_ATTACK));
 
 	switch (actionType)
 	{
@@ -91,8 +118,8 @@ void Warrior::HandleInput()
 {
 	std::cout << "What do you want to do with " << name << "?" << std::endl;
 	std::cout << "[0] Attack " << " | " << "[1] Defend";
-	
-	if (_energy > 0)
+
+	if (_currentEnergy > 0)
 		cout << " | " << "[2] Magical Attack" << " | " << "[3] Magical Defense";
 
 	cout << std::endl;
@@ -166,9 +193,9 @@ Warrior* Warrior::ChooseOptimizedEnemy()
 			{
 				lowestDefenseWarrior = &_enemies->at(i);
 			}
-			
+
 			//get the enemy with the lowest health
-			if (_enemies->at(i)._health < lowestHealthWarrior->_health)
+			if (_enemies->at(i)._currentHealth < lowestHealthWarrior->_currentHealth)
 			{
 				lowestHealthWarrior = &_enemies->at(i);
 			}
@@ -188,9 +215,9 @@ Warrior* Warrior::ChooseOptimizedEnemy()
 			{
 				lowestMagicalDefenseWarrior = &_enemies->at(i);
 			}
-			
+
 			//get the enemy with the lowest health
-			if (_enemies->at(i)._health < lowestHealthWarrior->_health)
+			if (_enemies->at(i)._currentHealth < lowestHealthWarrior->_currentHealth)
 			{
 				lowestHealthWarrior = &_enemies->at(i);
 			}
@@ -202,26 +229,34 @@ Warrior* Warrior::ChooseOptimizedEnemy()
 
 void Warrior::TakeDamage(float damage)
 {
-	_health -= std::max((damage - _defense * _defenseMultiplier), 0.0f);
+	_currentHealth -= std::max((damage - _defense * _defenseMultiplier), 0.0f);
 
 	if (_defenseMultiplier != 0.0f) {
 		_defenseMultiplier = 0.0f;
 	}
 
-	if (_health <= 0)
+	if (_currentHealth <= 0)
 		_gameManager->CheckAliveWarriors();
 }
 
 void Warrior::TakeMagicalDamage(float magicalDamage)
 {
-	_health -= std::max((magicalDamage - _magicalDefense * _magicalDefenseMultiplier), 0.0f);
+	_currentHealth -= std::max((magicalDamage - _magicalDefense * _magicalDefenseMultiplier), 0.0f);
 
 	if (_magicalDefenseMultiplier != 0.0f) {
 		_magicalDefenseMultiplier = 0.0f;
 	}
 
-	if (_health <= 0)
+	if (_currentHealth <= 0)
 		_gameManager->CheckAliveWarriors();
+}
+
+void Warrior::IncreaseEnergy()
+{
+	_currentEnergy += _maxEnergy * 0.25;
+
+	if (_currentEnergy > _maxEnergy)
+		_currentEnergy = _maxEnergy;
 }
 
 void Warrior::IncreaseStats(float attackIncrease, float defenseIncrease, float magicalAttackIncrease, float magicalDefenseIncrease, float healthIncrease, float energyIncrease)
@@ -230,11 +265,11 @@ void Warrior::IncreaseStats(float attackIncrease, float defenseIncrease, float m
 	_defense = round(_defense + (20.0f * (defenseIncrease / 100.0f)));
 	_magicalAttack = round(_magicalAttack + (20.0f * (magicalAttackIncrease / 100.0f)));
 	_magicalDefense = round(_magicalDefense + (20.0f * (magicalDefenseIncrease / 100.0f)));
-	_health = round(_health + (20.0f * (healthIncrease / 100.0f)));
-	_energy = round(_energy + (20.0f * (energyIncrease / 100.0f)));
+	_maxHealth = round(_maxHealth + (20.0f * (healthIncrease / 100.0f)));
+	_maxEnergy = round(_maxEnergy + (20.0f * (energyIncrease / 100.0f)));
 }
 
 void Warrior::ShowStats()
 {
-	std::cout << name << " (HP)" << _health << std::endl;
+	std::cout << name << " [HP]" << _currentHealth << std::endl;
 }

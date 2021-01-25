@@ -47,7 +47,7 @@ void GameManager::SetSimulation()
 	aliveHeroes = _heroes;
 	aliveVillains = _villains;
 
-	for (size_t i = 0; i < aliveVillains.size(); i++)
+	for (size_t i = 0; i < aliveHeroes.size(); i++)
 	{
 		aliveHeroes[i].SetEnemies(&aliveVillains);
 	}

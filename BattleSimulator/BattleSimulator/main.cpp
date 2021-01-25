@@ -4,10 +4,11 @@
 #include "Warrior.h"
 #include "Action.h"
 #include "GameManager.h"
+#include <ctime>
 using namespace std;
 
 void Run3vs3Simulation(GameManager gameManager);
-void RunMainVsEnemiesSimulation(GameManager gameManager);
+void WinsPerLevel(GameManager gameManager);
 void RunPveSimulation(GameManager gameManager);
 
 void AddCharacterStatsToFile(Warrior warrior, std::ofstream& logFile);
@@ -21,7 +22,7 @@ int main() {
 	Warrior Elishah("Elishah", 28.0f, 8.0f, 2.0f, 3.0f, 6.0f, 5.0f, &gameManager);
 
 	Warrior guard_1("Guard_1", 26.0f, 3.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
-	Warrior guard_2("Guard_2",26.0f, 3.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
+	Warrior guard_2("Guard_2", 26.0f, 3.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
 	Warrior wizard("Wizard", 24.0f, 6.0f, 2.0f, 2.0f, 5.0f, 4.0f, &gameManager);
 
 	Warrior Fornter("Fornter", 1712.0f, 25.0f, 175.0f, 135.0f, 25.0f, 45.0f, &gameManager);
@@ -36,9 +37,9 @@ int main() {
 
 	// Main vs Enemy ==============================================================================
 
-	gameManager._heroes = { Greenmor };
-	gameManager._villains = { Fornter };
-	RunMainVsEnemiesSimulation(gameManager);
+	gameManager._heroes = { Greenmor,Brianna,Elishah };
+	gameManager._villains = { Fornter,GreatWizard };
+	WinsPerLevel(gameManager);
 
 	// PVE ========================================================================================
 	//RunPveSimulation(gameManager);
@@ -147,15 +148,15 @@ void Run3vs3Simulation(GameManager gameManager)
 	logFile.close();
 }
 
-void RunMainVsEnemiesSimulation(GameManager gameManager)
+void WinsPerLevel(GameManager gameManager)
 {
 	std::ofstream logFile;
-	logFile.open("../LogFiles/mainVsEnemies.txt");
+	logFile.open("mainVsEnemies.txt");
 
 	srand(time(NULL));
 
 	size_t max_levels = 100;
-	size_t max_simulations = 100;
+	size_t max_simulations = 2;
 	size_t max_rounds = 100;
 
 	for (size_t l = 1; l <= max_levels; l++)
@@ -167,12 +168,19 @@ void RunMainVsEnemiesSimulation(GameManager gameManager)
 		{
 			std::cout << "Level Increased!" << std::endl;
 			gameManager._heroes[0].IncreaseStats(80.0f, 80.0f, 70.0f, 70.0f, 100.0f, 70.0f);
+			gameManager._heroes[1].IncreaseStats(100.0f, 100.0f, 45.0f, 40.0f, 95.0f, 40.0f);
+			gameManager._heroes[2].IncreaseStats(60.0f, 65.0f, 100.0f, 100.0f, 85.0f, 100.0f);
 		}
 
-		std::cout << "Greenmor Stats: " << "HP " << gameManager._heroes[0]._currentHealth << " | " << "ATCK " << gameManager._heroes[0]._attack 
-			<< " | " << "DEF " << gameManager._heroes[0]._defense << " | " << "M_ATCK " << gameManager._heroes[0]._magicalAttack 
+		std::cout << "Greenmor Stats: " << "HP " << gameManager._heroes[0]._currentHealth << " | " << "ATCK " << gameManager._heroes[0]._attack
+			<< " | " << "DEF " << gameManager._heroes[0]._defense << " | " << "M_ATCK " << gameManager._heroes[0]._magicalAttack
 			<< " | " << "M_DEF " << gameManager._heroes[0]._magicalDefense << "\n";
-
+		std::cout << "Brianna Stats: " << "HP " << gameManager._heroes[1]._currentHealth << " | " << "ATCK " << gameManager._heroes[1]._attack
+			<< " | " << "DEF " << gameManager._heroes[1]._defense << " | " << "M_ATCK " << gameManager._heroes[1]._magicalAttack
+			<< " | " << "M_DEF " << gameManager._heroes[1]._magicalDefense << "\n";
+		std::cout << "Elishah Stats: " << "HP " << gameManager._heroes[2]._currentHealth << " | " << "ATCK " << gameManager._heroes[2]._attack
+			<< " | " << "DEF " << gameManager._heroes[2]._defense << " | " << "M_ATCK " << gameManager._heroes[2]._magicalAttack
+			<< " | " << "M_DEF " << gameManager._heroes[2]._magicalDefense << "\n";
 		float won_simulations = 0.0f;
 
 		for (size_t simulation = 0; simulation < max_simulations; simulation++)
@@ -185,18 +193,19 @@ void RunMainVsEnemiesSimulation(GameManager gameManager)
 			{
 				std::cout << "Round " << i + 1 << std::endl;
 
-				for (size_t i = 0; i < gameManager.aliveHeroes.size(); i++)
+				for (size_t j = 0; j < gameManager.aliveHeroes.size(); j++)
 				{
-					gameManager.aliveHeroes[0].ChooseAction(ActionStrategy::RANDOM);
-					gameManager.aliveHeroes[0].ChooseEnemy(ChooseTargetStrategy::OPTIMIZED);
-					gameManager.aliveHeroes[0].ExecuteAction();
+					gameManager.aliveHeroes[j].ChooseAction(ActionStrategy::RANDOM);
+					gameManager.aliveHeroes[j].ChooseEnemy(ChooseTargetStrategy::OPTIMIZED);
+					gameManager.aliveHeroes[j].ExecuteAction();
 				}
 
-				for (size_t i = 0; i < gameManager.aliveVillains.size(); i++)
+				for (size_t j = 0; j < gameManager.aliveVillains.size(); j++)
 				{
-					gameManager.aliveVillains[0].ChooseAction(ActionStrategy::RANDOM);
-					gameManager.aliveVillains[0].ChooseEnemy(ChooseTargetStrategy::OPTIMIZED);
-					gameManager.aliveVillains[0].ExecuteAction();
+					gameManager.aliveVillains[j].ChooseAction(ActionStrategy::RANDOM);
+					gameManager.aliveVillains[j].ChooseEnemy(ChooseTargetStrategy::OPTIMIZED);
+					gameManager.aliveVillains[j].ExecuteAction();
+
 				}
 
 				winner = gameManager.CheckWinner();
@@ -224,6 +233,9 @@ void RunMainVsEnemiesSimulation(GameManager gameManager)
 
 	logFile << "Character | " << "health |" << " energy |" << " attack |" << " defense |" << " magical attack |" << " magical defense \n";
 	AddCharacterStatsToFile(gameManager._heroes[0], logFile);
+	AddCharacterStatsToFile(gameManager._heroes[1], logFile);
+	AddCharacterStatsToFile(gameManager._heroes[2], logFile);
+	logFile.close();
 }
 
 void RunPveSimulation(GameManager gameManager)

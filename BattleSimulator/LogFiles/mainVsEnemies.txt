@@ -1,103 +1,103 @@
-Level 1: Villains won 
-Level 2: Villains won 
-Level 3: Villains won 
-Level 4: Villains won 
-Level 5: Villains won 
-Level 6: Villains won 
-Level 7: Villains won 
-Level 8: Villains won 
-Level 9: Villains won 
-Level 10: Villains won 
-Level 11: Villains won 
-Level 12: Villains won 
-Level 13: Villains won 
-Level 14: Villains won 
-Level 15: Villains won 
-Level 16: Villains won 
-Level 17: Villains won 
-Level 18: Villains won 
-Level 19: Villains won 
-Level 20: Villains won 
-Level 21: Villains won 
-Level 22: Villains won 
-Level 23: Villains won 
-Level 24: Villains won 
-Level 25: Villains won 
-Level 26: Villains won 
-Level 27: Villains won 
-Level 28: Villains won 
-Level 29: Villains won 
-Level 30: Villains won 
-Level 31: Villains won 
-Level 32: Villains won 
-Level 33: Villains won 
-Level 34: Villains won 
-Level 35: Villains won 
-Level 36: Villains won 
-Level 37: Villains won 
-Level 38: Villains won 
-Level 39: Villains won 
-Level 40: Villains won 
-Level 41: Villains won 
-Level 42: Villains won 
-Level 43: Villains won 
-Level 44: Villains won 
-Level 45: Villains won 
-Level 46: Villains won 
-Level 47: Villains won 
-Level 48: Villains won 
-Level 49: Villains won 
-Level 50: Villains won 
-Level 51: Villains won 
-Level 52: Villains won 
-Level 53: Villains won 
-Level 54: Villains won 
-Level 55: Villains won 
-Level 56: Villains won 
-Level 57: Villains won 
-Level 58: Villains won 
-Level 59: Villains won 
-Level 60: Villains won 
-Level 61: Villains won 
-Level 62: Villains won 
-Level 63: Villains won 
-Level 64: Villains won 
-Level 65: Villains won 
-Level 66: Heroes won 
-Level 67: Villains won 
-Level 68: Villains won 
-Level 69: Villains won 
-Level 70: Villains won 
-Level 71: Villains won 
-Level 72: Heroes won 
-Level 73: Villains won 
-Level 74: Heroes won 
-Level 75: Villains won 
-Level 76: Villains won 
-Level 77: Heroes won 
-Level 78: Villains won 
-Level 79: Villains won 
-Level 80: Heroes won 
-Level 81: Villains won 
-Level 82: Heroes won 
-Level 83: Villains won 
-Level 84: Villains won 
-Level 85: Heroes won 
-Level 86: Heroes won 
-Level 87: Heroes won 
-Level 88: Villains won 
-Level 89: Heroes won 
-Level 90: Heroes won 
-Level 91: Heroes won 
-Level 92: Villains won 
-Level 93: Heroes won 
-Level 94: Heroes won 
-Level 95: Heroes won 
-Level 96: Villains won 
-Level 97: Heroes won 
-Level 98: Heroes won 
-Level 99: Heroes won 
-Level 100: Villains won 
+Level 1: Won simulations 0
+Level 2: Won simulations 0
+Level 3: Won simulations 0
+Level 4: Won simulations 0
+Level 5: Won simulations 0
+Level 6: Won simulations 0
+Level 7: Won simulations 0
+Level 8: Won simulations 0
+Level 9: Won simulations 0
+Level 10: Won simulations 0
+Level 11: Won simulations 0
+Level 12: Won simulations 0
+Level 13: Won simulations 0
+Level 14: Won simulations 0
+Level 15: Won simulations 0
+Level 16: Won simulations 0
+Level 17: Won simulations 0
+Level 18: Won simulations 0
+Level 19: Won simulations 0
+Level 20: Won simulations 0
+Level 21: Won simulations 0
+Level 22: Won simulations 0
+Level 23: Won simulations 0
+Level 24: Won simulations 0
+Level 25: Won simulations 0
+Level 26: Won simulations 0
+Level 27: Won simulations 0
+Level 28: Won simulations 0
+Level 29: Won simulations 0
+Level 30: Won simulations 0
+Level 31: Won simulations 0
+Level 32: Won simulations 0
+Level 33: Won simulations 0
+Level 34: Won simulations 0
+Level 35: Won simulations 0
+Level 36: Won simulations 0
+Level 37: Won simulations 0
+Level 38: Won simulations 0
+Level 39: Won simulations 0
+Level 40: Won simulations 0
+Level 41: Won simulations 0
+Level 42: Won simulations 0
+Level 43: Won simulations 0
+Level 44: Won simulations 0
+Level 45: Won simulations 0
+Level 46: Won simulations 0
+Level 47: Won simulations 0
+Level 48: Won simulations 0
+Level 49: Won simulations 0
+Level 50: Won simulations 0
+Level 51: Won simulations 0
+Level 52: Won simulations 0
+Level 53: Won simulations 0
+Level 54: Won simulations 0
+Level 55: Won simulations 0
+Level 56: Won simulations 1
+Level 57: Won simulations 0
+Level 58: Won simulations 0
+Level 59: Won simulations 1
+Level 60: Won simulations 0
+Level 61: Won simulations 0
+Level 62: Won simulations 2
+Level 63: Won simulations 0
+Level 64: Won simulations 3
+Level 65: Won simulations 0
+Level 66: Won simulations 1
+Level 67: Won simulations 1
+Level 68: Won simulations 2
+Level 69: Won simulations 1
+Level 70: Won simulations 3
+Level 71: Won simulations 3
+Level 72: Won simulations 6
+Level 73: Won simulations 5
+Level 74: Won simulations 5
+Level 75: Won simulations 5
+Level 76: Won simulations 3
+Level 77: Won simulations 6
+Level 78: Won simulations 3
+Level 79: Won simulations 3
+Level 80: Won simulations 5
+Level 81: Won simulations 4
+Level 82: Won simulations 5
+Level 83: Won simulations 1
+Level 84: Won simulations 6
+Level 85: Won simulations 12
+Level 86: Won simulations 9
+Level 87: Won simulations 6
+Level 88: Won simulations 5
+Level 89: Won simulations 13
+Level 90: Won simulations 12
+Level 91: Won simulations 8
+Level 92: Won simulations 8
+Level 93: Won simulations 15
+Level 94: Won simulations 10
+Level 95: Won simulations 15
+Level 96: Won simulations 12
+Level 97: Won simulations 10
+Level 98: Won simulations 14
+Level 99: Won simulations 12
+Level 100: Won simulations 18
 
-Character | health |energy |attack |defense |magical attack |magical defense 
-Greenmor | 450 | 283 | 324 | 323 | 283 | 282 
+Character | health | energy | attack | defense | magical attack | magical defense 
+Greenmor | 425 | 283 | 324 | 323 | 283 | 282 

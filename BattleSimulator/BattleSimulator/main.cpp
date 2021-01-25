@@ -1,11 +1,10 @@
 #include <iostream>
-using namespace std;
 #include <fstream>
 #include <direct.h>
-
 #include "Warrior.h"
 #include "Action.h"
 #include "GameManager.h"
+using namespace std;
 
 void Run3vs3Simulation(GameManager gameManager);
 void RunMainVsEnemiesSimulation(GameManager gameManager);
@@ -30,16 +29,16 @@ int main() {
 
 	// 3 vs 3 =====================================================================================
 
-	gameManager._heroes = { Greenmor, Brianna, Elishah };
-	gameManager._villains = { guard_1, guard_2, wizard };
+	//gameManager._heroes = { Greenmor, Brianna, Elishah };
+	//gameManager._villains = { guard_1, guard_2, wizard };
 
-	Run3vs3Simulation(gameManager);
+	//Run3vs3Simulation(gameManager);
 
 	// Main vs Enemy ==============================================================================
 
-	//gameManager._heroes = { Greenmor };
-	//gameManager._villains = { Fornter };
-	//RunMainVsEnemiesSimulation(gameManager);
+	gameManager._heroes = { Greenmor };
+	gameManager._villains = { Fornter };
+	RunMainVsEnemiesSimulation(gameManager);
 
 	// PVE ========================================================================================
 	//RunPveSimulation(gameManager);
@@ -156,6 +155,7 @@ void RunMainVsEnemiesSimulation(GameManager gameManager)
 	srand(time(NULL));
 
 	size_t max_levels = 100;
+	size_t max_simulations = 100;
 	size_t max_rounds = 100;
 
 	for (size_t l = 1; l <= max_levels; l++)
@@ -173,43 +173,51 @@ void RunMainVsEnemiesSimulation(GameManager gameManager)
 			<< " | " << "DEF " << gameManager._heroes[0]._defense << " | " << "M_ATCK " << gameManager._heroes[0]._magicalAttack 
 			<< " | " << "M_DEF " << gameManager._heroes[0]._magicalDefense << "\n";
 
-		gameManager.SetSimulation();
+		float won_simulations = 0.0f;
 
-		int winner = -1;
-
-		for (size_t i = 0; i < max_rounds && winner == -1; i++)
+		for (size_t simulation = 0; simulation < max_simulations; simulation++)
 		{
-			std::cout << "Round " << i + 1 << std::endl;
+			std::cout << "Simulation: " << simulation << " ==================================================" << std::endl;
+			gameManager.SetSimulation();
+			int winner = -1;
 
-			for (size_t i = 0; i < gameManager.aliveHeroes.size(); i++)
+			for (size_t i = 0; i < max_rounds && winner == -1; i++)
 			{
-				gameManager.aliveHeroes[0].ChooseAction(ActionStrategy::RANDOM);
-				gameManager.aliveHeroes[0].ChooseEnemy(ChooseTargetStrategy::OPTIMIZED);
-				gameManager.aliveHeroes[0].ExecuteAction();
+				std::cout << "Round " << i + 1 << std::endl;
+
+				for (size_t i = 0; i < gameManager.aliveHeroes.size(); i++)
+				{
+					gameManager.aliveHeroes[0].ChooseAction(ActionStrategy::RANDOM);
+					gameManager.aliveHeroes[0].ChooseEnemy(ChooseTargetStrategy::OPTIMIZED);
+					gameManager.aliveHeroes[0].ExecuteAction();
+				}
+
+				for (size_t i = 0; i < gameManager.aliveVillains.size(); i++)
+				{
+					gameManager.aliveVillains[0].ChooseAction(ActionStrategy::RANDOM);
+					gameManager.aliveVillains[0].ChooseEnemy(ChooseTargetStrategy::OPTIMIZED);
+					gameManager.aliveVillains[0].ExecuteAction();
+				}
+
+				winner = gameManager.CheckWinner();
+
+				std::cout << "" << std::endl;
+
+				if (winner == 0) {
+					//logFile << "Heroes won \n";
+					won_simulations++;
+				}
+				else if (winner == 1)
+				{
+					//logFile << "Villains won \n";
+				}
+				else {
+					//logFile << "Draw \n";
+				}
 			}
-
-			for (size_t i = 0; i < gameManager.aliveVillains.size(); i++)
-			{
-				gameManager.aliveVillains[0].ChooseAction(ActionStrategy::RANDOM);
-				gameManager.aliveVillains[0].ChooseEnemy(ChooseTargetStrategy::OPTIMIZED);
-				gameManager.aliveVillains[0].ExecuteAction();
-			}
-
-			winner = gameManager.CheckWinner();
-
-			std::cout << "" << std::endl;
 		}
 
-		if (winner == 0) {
-			logFile << "Heroes won \n";
-		}
-		else if (winner == 1)
-		{
-			logFile << "Villains won \n";
-		}
-		else {
-			logFile << "Draw \n";
-		}
+		logFile << "Won simulations " << won_simulations / (float)max_simulations * 100.0f << endl;
 	}
 
 	logFile << "\n";

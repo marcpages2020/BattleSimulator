@@ -1,7 +1,7 @@
 #include "Warrior.h"
 #include "GameManager.h"
 #include <stdlib.h>
-#include <time.h>
+#include <ctime>
 #include <iostream>
 using namespace std;
 

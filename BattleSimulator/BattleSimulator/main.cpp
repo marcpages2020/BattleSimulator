@@ -25,8 +25,8 @@ int main() {
 	Warrior guard_2("Guard_2", 26.0f, 3.0f, 5.0f, 4.0f, 1.0f, 2.0f, &gameManager);
 	Warrior wizard("Wizard", 24.0f, 6.0f, 2.0f, 2.0f, 5.0f, 4.0f, &gameManager);
 
-	Warrior Fornter("Fornter", 400.0f, 25.0f, 45.0f, 45.0f, 25.0f, 45.0f, &gameManager);
-	Warrior GreatWizard("GreatWizard", 400.0f, 50.0f, 45.0f, 50.0f, 50.0f, 60.0f, &gameManager);
+	Warrior Fornter("Fornter", 750.0f, 25.0f, 90.0f, 80.0f, 25.0f, 45.0f, &gameManager);
+	Warrior GreatWizard("GreatWizard", 700.0f, 90.0f, 45.0f, 60.0f, 80.0f, 120.0f, &gameManager);
 
 	// 3 vs 3 =====================================================================================
 
@@ -156,7 +156,7 @@ void WinsPerLevel(GameManager gameManager)
 	srand(time(NULL));
 
 	size_t max_levels = 100;
-	size_t max_simulations = 2;
+	size_t max_simulations = 100;
 	size_t max_rounds = 100;
 
 	for (size_t l = 1; l <= max_levels; l++)

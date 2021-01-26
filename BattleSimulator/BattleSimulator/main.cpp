@@ -17,6 +17,8 @@ int main() {
 
 	GameManager gameManager;
 
+	//Warrior(const char* name, float health, float energy, float attack, float defense, float magicalAttack, float magicalDefense, GameManager * gameManager);
+							  // Health | Energy | Attack | Defense | Magical Attack | Magical Defense | 
 	Warrior Greenmor("Greenmor", 25.0f, 3.0f, 4.0f, 3.0f, 3.0f, 2.0f, &gameManager);
 	Warrior Brianna("Brianna", 29.0f, 2.0f, 6.0f, 4.0f, 1.0f, 1.0f, &gameManager);
 	Warrior Elishah("Elishah", 28.0f, 8.0f, 2.0f, 3.0f, 6.0f, 5.0f, &gameManager);
@@ -156,7 +158,7 @@ void WinsPerLevel(GameManager gameManager)
 	srand(time(NULL));
 
 	size_t max_levels = 100;
-	size_t max_simulations = 100;
+	size_t max_simulations = 1;
 	size_t max_rounds = 100;
 
 	for (size_t l = 1; l <= max_levels; l++)
@@ -164,13 +166,19 @@ void WinsPerLevel(GameManager gameManager)
 		logFile << "Level " << l << ": ";
 		std::cout << "Level " << l << " ==================================================" << std::endl;
 
+		//Stats Increase ==========================================================================================================================
+		gameManager._heroes[0].IncreaseHealth(100.0f); //Greenmor
+		gameManager._heroes[1].IncreaseHealth(95.0f);  //Brianna
+		gameManager._heroes[2].IncreaseHealth(85.0f);  //Elishah
+
 		if ((l % 5) == 0)
 		{
 			std::cout << "Level Increased!" << std::endl;
-			gameManager._heroes[0].IncreaseStats(80.0f, 80.0f, 70.0f, 70.0f, 100.0f, 70.0f);
-			gameManager._heroes[1].IncreaseStats(100.0f, 100.0f, 45.0f, 40.0f, 95.0f, 40.0f);
-			gameManager._heroes[2].IncreaseStats(60.0f, 65.0f, 100.0f, 100.0f, 85.0f, 100.0f);
+			gameManager._heroes[0].IncreaseStats(80.0f, 80.0f, 70.0f, 70.0f, 70.0f);      //Greenmor
+			gameManager._heroes[1].IncreaseStats(100.0f, 100.0f, 45.0f, 40.0f, 40.0f);	  //Brianna
+			gameManager._heroes[2].IncreaseStats(60.0f, 65.0f, 100.0f, 100.0f, 100.0f);	  //Elishah
 		}
+		//==========================================================================================================================================
 
 		std::cout << "Greenmor Stats: " << "HP " << gameManager._heroes[0]._currentHealth << " | " << "ATCK " << gameManager._heroes[0]._attack
 			<< " | " << "DEF " << gameManager._heroes[0]._defense << " | " << "M_ATCK " << gameManager._heroes[0]._magicalAttack
@@ -181,7 +189,9 @@ void WinsPerLevel(GameManager gameManager)
 		std::cout << "Elishah Stats: " << "HP " << gameManager._heroes[2]._currentHealth << " | " << "ATCK " << gameManager._heroes[2]._attack
 			<< " | " << "DEF " << gameManager._heroes[2]._defense << " | " << "M_ATCK " << gameManager._heroes[2]._magicalAttack
 			<< " | " << "M_DEF " << gameManager._heroes[2]._magicalDefense << "\n";
+		
 		float won_simulations = 0.0f;
+		float average_rounds = 0.0f;
 
 		for (size_t simulation = 1; simulation <= max_simulations; simulation++)
 		{
@@ -192,18 +202,19 @@ void WinsPerLevel(GameManager gameManager)
 			for (size_t i = 0; i < max_rounds && winner == -1; i++)
 			{
 				std::cout << "Round " << i + 1 << std::endl;
+				average_rounds++;
 
 				for (size_t j = 0; j < gameManager.aliveHeroes.size(); j++)
 				{
 					gameManager.aliveHeroes[j].ChooseAction(ActionStrategy::ATTACK_TENDENCY);
-					gameManager.aliveHeroes[j].ChooseEnemy(ChooseTargetStrategy::OPTIMIZED);
+					gameManager.aliveHeroes[j].ChooseEnemy(ChooseTargetStrategy::RANDOM);
 					gameManager.aliveHeroes[j].ExecuteAction();
 				}
 
 				for (size_t j = 0; j < gameManager.aliveVillains.size(); j++)
 				{
 					gameManager.aliveVillains[j].ChooseAction(ActionStrategy::ATTACK_TENDENCY);
-					gameManager.aliveVillains[j].ChooseEnemy(ChooseTargetStrategy::OPTIMIZED);
+					gameManager.aliveVillains[j].ChooseEnemy(ChooseTargetStrategy::RANDOM);
 					gameManager.aliveVillains[j].ExecuteAction();
 
 				}
@@ -226,7 +237,8 @@ void WinsPerLevel(GameManager gameManager)
 			}
 		}
 
-		logFile << "Won simulations " << won_simulations / (float)max_simulations * 100.0f << endl;
+		logFile << "Won simulations " << won_simulations / (float)max_simulations * 100.0f << " | ";
+		logFile << "Average rounds " << average_rounds / (float)max_simulations << endl;
 	}
 
 	logFile << "\n";

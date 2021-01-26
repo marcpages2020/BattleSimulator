@@ -7,7 +7,7 @@ GameManager::~GameManager() {}
 void GameManager::CheckAliveWarriors()
 {
 	std::vector<Warrior> tmp_alive_heroes;
-	for (size_t i = 0; i < aliveHeroes.size(); i++)
+	for (size_t i = 0; i < aliveHeroes.size(); ++i)
 	{
 		if (aliveHeroes[i].IsAlive()) {
 			tmp_alive_heroes.push_back(aliveHeroes[i]);
@@ -17,7 +17,7 @@ void GameManager::CheckAliveWarriors()
 	aliveHeroes = tmp_alive_heroes;
 
 	std::vector<Warrior> tmp_alive_villains;
-	for (size_t i = 0; i < aliveVillains.size(); i++)
+	for (size_t i = 0; i < aliveVillains.size(); ++i)
 	{
 		if (aliveVillains[i].IsAlive()) {
 			tmp_alive_villains.push_back(aliveVillains[i]);

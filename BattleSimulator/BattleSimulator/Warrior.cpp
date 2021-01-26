@@ -236,7 +236,7 @@ void Warrior::TakeDamage(float damage)
 		_defenseMultiplier = 0.0f;
 	}
 
-	if (_currentHealth <= 0)
+	if (_currentHealth <= 0.0f)
 		_gameManager->CheckAliveWarriors();
 }
 
@@ -248,7 +248,7 @@ void Warrior::TakeMagicalDamage(float magicalDamage)
 		_magicalDefenseMultiplier = 0.0f;
 	}
 
-	if (_currentHealth <= 0)
+	if (_currentHealth <= 0.0f)
 		_gameManager->CheckAliveWarriors();
 }
 
@@ -260,14 +260,19 @@ void Warrior::IncreaseEnergy()
 		_currentEnergy = _maxEnergy;
 }
 
-void Warrior::IncreaseStats(float attackIncrease, float defenseIncrease, float magicalAttackIncrease, float magicalDefenseIncrease, float healthIncrease, float energyIncrease)
+void Warrior::IncreaseHealth(float increase)
+{
+	_maxHealth = round(_maxHealth + (25.0f * (increase / 100.0f)));
+	_currentHealth = _maxHealth;
+}
+
+void Warrior::IncreaseStats(float attackIncrease, float defenseIncrease, float magicalAttackIncrease, float magicalDefenseIncrease, float energyIncrease)
 {
 	_attack = round(_attack + (20.0f * (attackIncrease / 100.0f)));
 	_defense = round(_defense + (20.0f * (defenseIncrease / 100.0f)));
 	_magicalAttack = round(_magicalAttack + (20.0f * (magicalAttackIncrease / 100.0f)));
 	_magicalDefense = round(_magicalDefense + (20.0f * (magicalDefenseIncrease / 100.0f)));
-	_maxHealth = round(_maxHealth + (25.0f * (healthIncrease / 100.0f)));
-	_currentHealth = _maxHealth;
+
 	_maxEnergy = round(_maxEnergy + (20.0f * (energyIncrease / 100.0f)));
 	_currentEnergy = _maxEnergy;
 }

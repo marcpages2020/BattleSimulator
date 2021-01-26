@@ -1,105 +1,105 @@
-Level 1: Won simulations 0
-Level 2: Won simulations 0
-Level 3: Won simulations 0
-Level 4: Won simulations 0
-Level 5: Won simulations 0
-Level 6: Won simulations 0
-Level 7: Won simulations 0
-Level 8: Won simulations 0
-Level 9: Won simulations 0
-Level 10: Won simulations 0
-Level 11: Won simulations 0
-Level 12: Won simulations 0
-Level 13: Won simulations 0
-Level 14: Won simulations 0
-Level 15: Won simulations 0
-Level 16: Won simulations 0
-Level 17: Won simulations 0
-Level 18: Won simulations 0
-Level 19: Won simulations 0
-Level 20: Won simulations 2
-Level 21: Won simulations 2
-Level 22: Won simulations 2
-Level 23: Won simulations 2
-Level 24: Won simulations 5
-Level 25: Won simulations 28
-Level 26: Won simulations 21
-Level 27: Won simulations 23
-Level 28: Won simulations 29
-Level 29: Won simulations 25
-Level 30: Won simulations 78
-Level 31: Won simulations 75
-Level 32: Won simulations 73
-Level 33: Won simulations 60
-Level 34: Won simulations 71
-Level 35: Won simulations 92
-Level 36: Won simulations 91
-Level 37: Won simulations 91
-Level 38: Won simulations 95
-Level 39: Won simulations 89
-Level 40: Won simulations 98
-Level 41: Won simulations 100
-Level 42: Won simulations 96
-Level 43: Won simulations 100
-Level 44: Won simulations 99
-Level 45: Won simulations 100
-Level 46: Won simulations 100
-Level 47: Won simulations 100
-Level 48: Won simulations 100
-Level 49: Won simulations 100
-Level 50: Won simulations 99
-Level 51: Won simulations 100
-Level 52: Won simulations 100
-Level 53: Won simulations 100
-Level 54: Won simulations 100
-Level 55: Won simulations 100
-Level 56: Won simulations 100
-Level 57: Won simulations 100
-Level 58: Won simulations 100
-Level 59: Won simulations 100
-Level 60: Won simulations 100
-Level 61: Won simulations 100
-Level 62: Won simulations 100
-Level 63: Won simulations 100
-Level 64: Won simulations 100
-Level 65: Won simulations 100
-Level 66: Won simulations 100
-Level 67: Won simulations 100
-Level 68: Won simulations 100
-Level 69: Won simulations 100
-Level 70: Won simulations 100
-Level 71: Won simulations 100
-Level 72: Won simulations 100
-Level 73: Won simulations 100
-Level 74: Won simulations 100
-Level 75: Won simulations 100
-Level 76: Won simulations 100
-Level 77: Won simulations 100
-Level 78: Won simulations 100
-Level 79: Won simulations 100
-Level 80: Won simulations 100
-Level 81: Won simulations 100
-Level 82: Won simulations 100
-Level 83: Won simulations 100
-Level 84: Won simulations 100
-Level 85: Won simulations 100
-Level 86: Won simulations 100
-Level 87: Won simulations 100
-Level 88: Won simulations 100
-Level 89: Won simulations 100
-Level 90: Won simulations 100
-Level 91: Won simulations 100
-Level 92: Won simulations 100
-Level 93: Won simulations 100
-Level 94: Won simulations 100
-Level 95: Won simulations 100
-Level 96: Won simulations 100
-Level 97: Won simulations 100
-Level 98: Won simulations 100
-Level 99: Won simulations 100
-Level 100: Won simulations 100
+Level 1: Won simulations 0 | Average rounds 4
+Level 2: Won simulations 0 | Average rounds 4
+Level 3: Won simulations 0 | Average rounds 5
+Level 4: Won simulations 0 | Average rounds 8
+Level 5: Won simulations 0 | Average rounds 5
+Level 6: Won simulations 0 | Average rounds 11
+Level 7: Won simulations 0 | Average rounds 10
+Level 8: Won simulations 0 | Average rounds 12
+Level 9: Won simulations 0 | Average rounds 15
+Level 10: Won simulations 0 | Average rounds 13
+Level 11: Won simulations 0 | Average rounds 13
+Level 12: Won simulations 0 | Average rounds 23
+Level 13: Won simulations 0 | Average rounds 14
+Level 14: Won simulations 0 | Average rounds 20
+Level 15: Won simulations 0 | Average rounds 24
+Level 16: Won simulations 0 | Average rounds 21
+Level 17: Won simulations 100 | Average rounds 27
+Level 18: Won simulations 0 | Average rounds 37
+Level 19: Won simulations 0 | Average rounds 36
+Level 20: Won simulations 100 | Average rounds 18
+Level 21: Won simulations 100 | Average rounds 16
+Level 22: Won simulations 100 | Average rounds 18
+Level 23: Won simulations 100 | Average rounds 18
+Level 24: Won simulations 100 | Average rounds 18
+Level 25: Won simulations 100 | Average rounds 13
+Level 26: Won simulations 100 | Average rounds 15
+Level 27: Won simulations 100 | Average rounds 13
+Level 28: Won simulations 100 | Average rounds 16
+Level 29: Won simulations 100 | Average rounds 15
+Level 30: Won simulations 100 | Average rounds 14
+Level 31: Won simulations 100 | Average rounds 13
+Level 32: Won simulations 100 | Average rounds 12
+Level 33: Won simulations 100 | Average rounds 14
+Level 34: Won simulations 100 | Average rounds 15
+Level 35: Won simulations 100 | Average rounds 14
+Level 36: Won simulations 100 | Average rounds 7
+Level 37: Won simulations 100 | Average rounds 9
+Level 38: Won simulations 100 | Average rounds 12
+Level 39: Won simulations 100 | Average rounds 10
+Level 40: Won simulations 100 | Average rounds 9
+Level 41: Won simulations 100 | Average rounds 12
+Level 42: Won simulations 100 | Average rounds 14
+Level 43: Won simulations 100 | Average rounds 11
+Level 44: Won simulations 100 | Average rounds 8
+Level 45: Won simulations 100 | Average rounds 10
+Level 46: Won simulations 100 | Average rounds 10
+Level 47: Won simulations 100 | Average rounds 9
+Level 48: Won simulations 100 | Average rounds 6
+Level 49: Won simulations 100 | Average rounds 9
+Level 50: Won simulations 100 | Average rounds 7
+Level 51: Won simulations 100 | Average rounds 7
+Level 52: Won simulations 100 | Average rounds 8
+Level 53: Won simulations 100 | Average rounds 7
+Level 54: Won simulations 100 | Average rounds 9
+Level 55: Won simulations 100 | Average rounds 10
+Level 56: Won simulations 100 | Average rounds 6
+Level 57: Won simulations 100 | Average rounds 7
+Level 58: Won simulations 100 | Average rounds 6
+Level 59: Won simulations 100 | Average rounds 5
+Level 60: Won simulations 100 | Average rounds 5
+Level 61: Won simulations 100 | Average rounds 4
+Level 62: Won simulations 100 | Average rounds 6
+Level 63: Won simulations 100 | Average rounds 8
+Level 64: Won simulations 100 | Average rounds 8
+Level 65: Won simulations 100 | Average rounds 7
+Level 66: Won simulations 100 | Average rounds 6
+Level 67: Won simulations 100 | Average rounds 5
+Level 68: Won simulations 100 | Average rounds 6
+Level 69: Won simulations 100 | Average rounds 6
+Level 70: Won simulations 100 | Average rounds 4
+Level 71: Won simulations 100 | Average rounds 6
+Level 72: Won simulations 100 | Average rounds 5
+Level 73: Won simulations 100 | Average rounds 7
+Level 74: Won simulations 100 | Average rounds 4
+Level 75: Won simulations 100 | Average rounds 5
+Level 76: Won simulations 100 | Average rounds 5
+Level 77: Won simulations 100 | Average rounds 5
+Level 78: Won simulations 100 | Average rounds 6
+Level 79: Won simulations 100 | Average rounds 5
+Level 80: Won simulations 100 | Average rounds 6
+Level 81: Won simulations 100 | Average rounds 4
+Level 82: Won simulations 100 | Average rounds 4
+Level 83: Won simulations 100 | Average rounds 5
+Level 84: Won simulations 100 | Average rounds 6
+Level 85: Won simulations 100 | Average rounds 4
+Level 86: Won simulations 100 | Average rounds 5
+Level 87: Won simulations 100 | Average rounds 5
+Level 88: Won simulations 100 | Average rounds 5
+Level 89: Won simulations 100 | Average rounds 6
+Level 90: Won simulations 100 | Average rounds 4
+Level 91: Won simulations 100 | Average rounds 5
+Level 92: Won simulations 100 | Average rounds 4
+Level 93: Won simulations 100 | Average rounds 3
+Level 94: Won simulations 100 | Average rounds 4
+Level 95: Won simulations 100 | Average rounds 3
+Level 96: Won simulations 100 | Average rounds 5
+Level 97: Won simulations 100 | Average rounds 3
+Level 98: Won simulations 100 | Average rounds 6
+Level 99: Won simulations 100 | Average rounds 3
+Level 100: Won simulations 100 | Average rounds 5
 
 Character | health | energy | attack | defense | magical attack | magical defense 
-Greenmor | 525 | 283 | 324 | 323 | 283 | 282 
-Brianna | 509 | 162 | 406 | 404 | 181 | 161 
-Elishah | 448 | 408 | 242 | 263 | 406 | 405 
+Greenmor | 2525 | 283 | 324 | 323 | 283 | 282 
+Brianna | 2429 | 162 | 406 | 404 | 181 | 161 
+Elishah | 2128 | 408 | 242 | 263 | 406 | 405 

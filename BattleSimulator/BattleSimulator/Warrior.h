@@ -38,8 +38,9 @@ public:
 	void TakeMagicalDamage(float magicalDamage);
 	void IncreaseEnergy();
 
-	inline bool IsAlive() { return _currentHealth > 0; }
-	void IncreaseStats(float attackIncrease, float defenseIncrease, float magicalAttackIncrease, float magicalDefenseIncrease, float healthIncrease, float energyIncrease);
+	inline bool IsAlive() { return _currentHealth > 0.0f; }
+	void IncreaseHealth(float increase);
+	void IncreaseStats(float attackIncrease, float defenseIncrease, float magicalAttackIncrease, float magicalDefenseIncrease, float energyIncrease);
 	void ShowStats();
 
 private:

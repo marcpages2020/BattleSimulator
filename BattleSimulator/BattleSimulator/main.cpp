@@ -35,10 +35,10 @@ int main() {
 
 	//Run3vs3Simulation(gameManager);
 
-	// Main vs Enemy ==============================================================================
+	// Simulation per Levels ==============================================================================
 
 	gameManager._heroes = { Greenmor,Brianna,Elishah };
-	gameManager._villains = { wizard,wizard,guard_1,guard_2,guard_2,guard_2,wizard,wizard,guard_1,guard_2};
+	gameManager._villains = { Fornter, GreatWizard }; //{ wizard,wizard,guard_1,guard_2,guard_2,guard_2,wizard,wizard,guard_1,guard_2};
 	WinsPerLevel(gameManager);
 
 	// PVE ========================================================================================
@@ -151,12 +151,12 @@ void Run3vs3Simulation(GameManager gameManager)
 void WinsPerLevel(GameManager gameManager)
 {
 	std::ofstream logFile;
-	logFile.open("mainVsEnemies.txt");
+	logFile.open("../LogFiles/winsPerLevel.txt");
 
 	srand(time(NULL));
 
 	size_t max_levels = 100;
-	size_t max_simulations = 100;
+	size_t max_simulations = 2;
 	size_t max_rounds = 100;
 
 	for (size_t l = 1; l <= max_levels; l++)
@@ -183,7 +183,7 @@ void WinsPerLevel(GameManager gameManager)
 			<< " | " << "M_DEF " << gameManager._heroes[2]._magicalDefense << "\n";
 		float won_simulations = 0.0f;
 
-		for (size_t simulation = 0; simulation < max_simulations; simulation++)
+		for (size_t simulation = 1; simulation <= max_simulations; simulation++)
 		{
 			std::cout << "Simulation: " << simulation << " ==================================================" << std::endl;
 			gameManager.SetSimulation();
@@ -195,14 +195,14 @@ void WinsPerLevel(GameManager gameManager)
 
 				for (size_t j = 0; j < gameManager.aliveHeroes.size(); j++)
 				{
-					gameManager.aliveHeroes[j].ChooseAction(ActionStrategy::RANDOM);
+					gameManager.aliveHeroes[j].ChooseAction(ActionStrategy::ATTACK_TENDENCY);
 					gameManager.aliveHeroes[j].ChooseEnemy(ChooseTargetStrategy::OPTIMIZED);
 					gameManager.aliveHeroes[j].ExecuteAction();
 				}
 
 				for (size_t j = 0; j < gameManager.aliveVillains.size(); j++)
 				{
-					gameManager.aliveVillains[j].ChooseAction(ActionStrategy::RANDOM);
+					gameManager.aliveVillains[j].ChooseAction(ActionStrategy::ATTACK_TENDENCY);
 					gameManager.aliveVillains[j].ChooseEnemy(ChooseTargetStrategy::OPTIMIZED);
 					gameManager.aliveVillains[j].ExecuteAction();
 

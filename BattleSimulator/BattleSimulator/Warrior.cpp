@@ -267,7 +267,9 @@ void Warrior::IncreaseStats(float attackIncrease, float defenseIncrease, float m
 	_magicalAttack = round(_magicalAttack + (20.0f * (magicalAttackIncrease / 100.0f)));
 	_magicalDefense = round(_magicalDefense + (20.0f * (magicalDefenseIncrease / 100.0f)));
 	_maxHealth = round(_maxHealth + (25.0f * (healthIncrease / 100.0f)));
+	_currentHealth = _maxHealth;
 	_maxEnergy = round(_maxEnergy + (20.0f * (energyIncrease / 100.0f)));
+	_currentEnergy = _maxEnergy;
 }
 
 void Warrior::ShowStats()
